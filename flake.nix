@@ -32,9 +32,9 @@
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         apps.default = self'.homeShell;
         # packages.default = pkgs.hello;
-        # devShells = {
-        #   hyprland = self'.devShells.hyprland;
-        # };
+        devShells = {
+          default = pkgs.mkShell {};
+        };
       };
       flake = {
         # The usual flake attributes can be defined here, including system-
