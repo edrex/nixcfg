@@ -12,7 +12,7 @@
   # remap capslock -> esc, and switch lalt <-> lmeta
   # reload rules:
   # sudo systemd-hwdb update # done by nixos
-  # sudo udevadm trigger
+  # sudo udevadm trigger # nixos doesn't do this for some reason
 
   # show keypress codes for device:
   # sudo evtest # (not showkey -s)
@@ -30,6 +30,7 @@
 # bad idea since it results in lots of err: failed to call EVIOCSKEYCODE with scan code 
 # evdev:input:*
 evdev:name:Goldtouch Bluetooth Keyboard:dmi:bvn*:bvr*:bd*:svn*:pn*
+evdev:name:Microsoft Microsoft® 2.4GHz Transceiver v9.0:dmi:bvn*:bvr*:bd*:svn*:pn*
  KEYBOARD_KEY_700e2=leftmeta
  KEYBOARD_KEY_700e3=leftalt
  KEYBOARD_KEY_700e6=rightmeta
