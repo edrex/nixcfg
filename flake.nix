@@ -4,11 +4,11 @@
   nixConfig = {
     extra-substituters = [
       "https://helix.cachix.org"
-      "https://nix-community.cachix.org"
+      # "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
@@ -19,13 +19,16 @@
 
     hyprland.url = "github:hyprwm/hyprland";
     hyprpaper.url = "github:hyprwm/hyprpaper";
+
+    home-manager.url =  "github:nix-community/home-manager/release-22.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
   };
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./home
-        # ./shell/graphical
-        # ./flow/write
+        # ./lib/home-manager.nix
+        ./host/chip.nix
         # inputs.foo.flakeModule
       ];
       systems = [ "x86_64-linux" "aarch64-darwin" ];
