@@ -4,20 +4,20 @@
       ./graphical-shell
       ./devtools
        # ./term
-      ./apps/vscode
-      ./apps/neovim.nix
-      ./apps/emacs
-      ./apps/helix.nix
+      # ./apps/vscode
+      # ./apps/neovim.nix
+      # ./apps/emacs
+      # ./apps/helix.nix
       ./apps/browser.nix
       ./apps/term.nix
-      ./apps/comms.nix
+      # ./apps/comms.nix
     ];
 
   home.stateVersion = "21.11";
 
   home.packages = with pkgs; [
     # TODO: put this in edrex/noteshell
-    obsidian
+    # obsidian
     bottom
     # hledger
     # hledger-web

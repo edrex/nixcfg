@@ -2,9 +2,9 @@
    
   home.packages = with pkgs; [
     # vivaldi
-    firefox-wayland
+    # firefox-wayland
     chromium
-    qutebrowser
+    # qutebrowser
   ];
   programs = {
     browserpass.enable = true;
