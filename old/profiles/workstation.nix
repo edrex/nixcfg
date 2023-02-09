@@ -8,7 +8,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    gimp-with-plugins
+    gimp
     simple-scan
     gscan2pdf
     skanlite

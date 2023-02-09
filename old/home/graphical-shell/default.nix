@@ -9,11 +9,6 @@
   ];
 
 
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true ;
-  };
-
   programs.rofi = {
     enable = true; 
     package = pkgs.rofi-wayland.override {
@@ -38,8 +33,8 @@
     gtk-engine-murrine
     gtk_engines
     gsettings-desktop-schemas
-    lxappearance
-    qt5ct
+    # lxappearance
+    # qt5ct why?
   ];
 
   services.wlsunset = {

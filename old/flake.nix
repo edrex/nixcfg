@@ -47,77 +47,76 @@
   outputs = inputs:
     let
       mkSystem = { host, system ? "x86_64-linux", extra-modules ? []}:
-      let
-        lib = inputs.nixpkgs.lib;
-      in
-        lib.nixosSystem {
-          system = system;
-          modules = [
-            ./modules
-            ({ pkgs, ... }: {
-              nix = {
-                # readOnlyStore = false;
-                settings = {
-                  auto-optimise-store = true;
-                  sandbox = true;
-                  trusted-users = [ "@wheel" ];
-                };
+        let
+          lib = inputs.nixpkgs.lib;
+        in
+          lib.nixosSystem {
+            system = system;
+            modules = [
+              ./modules
+              ({ pkgs, ... }: {
+                nix = {
+                  # readOnlyStore = false;
+                  settings = {
+                    auto-optimise-store = true;
+                    sandbox = true;
+                    trusted-users = [ "@wheel" ];
+                  };
                 
-                extraOptions = ''
-                  experimental-features = nix-command flakes
-                  # keep-outputs = true
-                  # keep-derivations = true
-                '';
-                gc = {
-                  automatic = true;
-                  dates = "03:15";
+                  extraOptions = ''
+                    experimental-features = nix-command flakes
+                    # keep-outputs = true
+                    # keep-derivations = true
+                  '';
+                  gc = {
+                    automatic = true;
+                    dates = "03:15";
+                  };
+                  registry.nixpkgs.flake = inputs.nixpkgs;
                 };
-                registry.nixpkgs.flake = inputs.nixpkgs;
-              };
-              nixpkgs = {
-                overlays = [
-                  inputs.agenix.overlay
-                  inputs.emacs-overlay.overlay
-                  # https://www.lucacambiaghi.com/nixpkgs/readme.html
-                  (
-                    final: prev:
-                    let
-                      system = prev.stdenv.system;
-                      # nixpkgs-master = import inputs.nixpkgs-master {
-                      #   inherit system;
-                      #   config.allowUnfree = true;
-                      # };
-                    in {
-                      # TODO: move this into desktop shell repo
-                      pamixer-notify = final.callPackage ./pkgs/pamixer-notify.nix { };
-                      helix =
-                        if system == "x86_64-linux"
-                        then inputs.helix.outputs.packages.${pkgs.hostPlatform.system}.helix 
-                        else pkgs.helix;
-                    }
-                  )
+                nixpkgs = {
+                  overlays = [
+                    inputs.agenix.overlays.default
+                    inputs.emacs-overlay.overlay
+                    # https://www.lucacambiaghi.com/nixpkgs/readme.html
+                    (
+                      final: prev:
+                      let
+                        system = prev.stdenv.system;
+                        # nixpkgs-master = import inputs.nixpkgs-master {
+                        #   inherit system;
+                        #   config.allowUnfree = true;
+                        # };
+                      in {
+                        pamixer-notify = final.callPackage ./pkgs/pamixer-notify.nix { };
+                        helix =
+                          if system == "x86_64-linux"
+                          then inputs.helix.outputs.packages.${pkgs.hostPlatform.system}.helix 
+                          else pkgs.helix;
+                      }
+                    )
+                  ];
+                  config = {
+                    allowUnfree = true;
+                  };
+                };
+              })
+              (./. + "/hosts/${host}/configuration.nix")
+              (./. + "/home/edrex.nix")
+              inputs.home-manager.nixosModules.home-manager # https://rycee.gitlab.io/home-manager/index.html#sec-install-nixos-module
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.edrex = lib.mkMerge [
+                  ./home
                 ];
-                config = {
-                  allowUnfree = true;
-                };
-              };
-            })
-            (./. + "/hosts/${host}/configuration.nix")
-            (./. + "/home/edrex.nix")
-            inputs.home-manager.nixosModules.home-manager # https://rycee.gitlab.io/home-manager/index.html#sec-install-nixos-module
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.edrex = lib.mkMerge [
-                ./home
-              ];
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-            }
-            inputs.agenix.nixosModules.age
-          ] ++ extra-modules;
-          specialArgs = { inherit inputs; };
-        };
+                # Optionally, use home-manager.extraSpecialArgs to pass
+                # arguments to home.nix
+              }
+              inputs.agenix.nixosModules.age
+            ] ++ extra-modules;
+            specialArgs = { inherit inputs; };
+          };
     in {
       nixosConfigurations = {
         chip = mkSystem {

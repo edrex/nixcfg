@@ -3,13 +3,15 @@
   # services.xserver.desktopManager.gnome.enable = true;
  
   environment.systemPackages = with pkgs; [
+    # i use all 3
+    way-displays
     wdisplays
+    wlr-randr
     river
     xdg-utils
-    wlr-randr
     imv # i guess this should be in a module with basic userspace stuff
-    gnome.gnome-software
-    gnome.nautilus
+    # gnome.gnome-software
+    # gnome.nautilus
   ];
 
   services.greetd = {
@@ -55,9 +57,9 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = with pkgs; [
-      # xdg-desktop-portal-gtk
-    ];
+    # extraPortals = with pkgs; [
+    #   # xdg-desktop-portal-gtk
+    # ];
     gtkUsePortal = true;
   };
 
