@@ -63,7 +63,7 @@
           lib.nixosSystem {
             system = system;
             modules = [
-              ./modules
+              ./nixos/modules
               ({ pkgs, ... }: {  
                 nix = {
                   # readOnlyStore = false;
@@ -95,8 +95,8 @@
                   };
                 };
               })
-              (./. + "/hosts/${host}/configuration.nix")
-              (./. + "/home/edrex.nix")
+              (./nixos/hosts/${host}/configuration.nix)
+              (./nixos/users/edrex.nix)
               inputs.agenix.nixosModules.age
             ] ++ extra-modules;
             specialArgs = { inherit inputs; };
