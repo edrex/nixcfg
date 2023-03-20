@@ -12,7 +12,8 @@ in {
     # (pkgScript "exec-with-pwd" {
     #   inputs = [pkgs.sway pkgs.jq pkgs.awk];
     # })
-    pkgs.gitui
+    pkgs.lazygit
+
   ];
   home.sessionVariables = {
     VISUAL = "${pkgs.helix}/bin/hx";
@@ -32,16 +33,16 @@ in {
       };
     };
 
-    git = {
-      enable = true;
-      userName = "Eric Drechsel";
-      userEmail = "eric@pdxhub.org";
-      extraConfig = {
-        init.defaultBranch = "main";
-        push = { default = "current"; };
-        pull = { rebase = true; };
-      };
-    };
+    # git = {
+    #   enable = true;
+    #   userName = "Eric Drechsel";
+    #   userEmail = "eric@pdxhub.org";
+    #   extraConfig = {
+    #     init.defaultBranch = "main";
+    #     push = { default = "current"; };
+    #     pull = { rebase = true; };
+    #   };
+    # };
     direnv = {
       enable = true;
       nix-direnv = {

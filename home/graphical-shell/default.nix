@@ -2,12 +2,20 @@
 # really close match to my config needs: https://codeberg.org/imMaturana/nixos-config
 # todo: rename to "shell" (and module system)
   imports = [ 
-    ./sway.nix
+    # ./sway.nix
     ./displays.nix
     ./notify.nix
     ./screenshots.nix
   ];
 
+
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.gnome.adwaita-icon-theme;
+    size = 32;
+    gtk.enable = true;
+    x11.enable = true;
+  };
 
   programs.rofi = {
     enable = true; 

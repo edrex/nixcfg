@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports =
     [
       ./graphical-shell
@@ -13,7 +13,10 @@
       # ./apps/comms.nix
     ];
 
-  home.stateVersion = "21.11";
+  home.homeDirectory = "/home/edrex";
+  home.username = "edrex";
+
+  home.stateVersion = lib.mkDefault "21.11";
 
   home.packages = with pkgs; [
     # TODO: put this in edrex/noteshell

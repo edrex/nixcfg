@@ -15,6 +15,7 @@
   powerManagement.powertop.enable = true;
   # TODO: crib off of https://discourse.nixos.org/t/fan-keeps-spinning-with-a-base-installation-of-nixos/1394/3
 
+   programs.light.enable = true;
   # see `man logind.conf`
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed

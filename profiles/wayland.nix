@@ -57,10 +57,8 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    # extraPortals = with pkgs; [
-    #   # xdg-desktop-portal-gtk
-    # ];
-    gtkUsePortal = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # experimental. do i need any/all of these for automount?

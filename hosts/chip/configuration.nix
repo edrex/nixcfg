@@ -7,14 +7,22 @@
 {
   imports = [
       ./hardware-configuration.nix
-      ./keyboards.nix
+      # ./keyboards.nix
       ../../profiles/base.nix
       ../../profiles/laptop.nix
       ../../profiles/wayland.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix
+      ../../profiles/gaming.nix
     ];
 
+
+  services.xserver.layout = "us";
+  services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";
+  # Use same config for linux console
+  console.useXkbConfig = true;
+  # services.kmscon.enable = true;
+  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -27,20 +27,20 @@ in {
         };
       };
     }; 
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-          term = "xterm-256color";
+    # foot = {
+    #   enable = true;
+    #   settings = {
+    #     main = {
+    #       term = "xterm-256color";
 
-          font = "${font.name}:size=${toString font.size}";
-          dpi-aware = "yes";
-        };
+    #       font = "${font.name}:size=${toString font.size}";
+    #       dpi-aware = "yes";
+    #     };
 
-        mouse = {
-          hide-when-typing = "yes";
-        };
-      };
-    };
+    #     mouse = {
+    #       hide-when-typing = "yes";
+    #     };
+    #   };
+    # };
 };
 }

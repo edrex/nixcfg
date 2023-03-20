@@ -1,4 +1,4 @@
-{ pkgs, config, nixosConfig, lib, ... }:
+{ pkgs, config, lib, ... }:
 # TODO: let's split all the non-sway stuff off, and make it work with river too
 # kitchen sink config I can crib off of:
 # https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
@@ -392,12 +392,6 @@ client.background       #F8F8F2
 */
     };
 
-
     extraConfig = "seat seat0 xcursor_theme Adwaita 24\n";
-  } // (if nixosConfig.programs.sway.enable
-  then {
-    package = null;
-  } else {
-    wrapperFeatures.gtk = true ;
-  });
+  };
 }
