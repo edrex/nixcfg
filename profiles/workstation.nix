@@ -4,7 +4,7 @@
   users.users.edrex.extraGroups = [ "scanner" "lp" ];
   hardware.sane.extraBackends = [
     pkgs.sane-airscan
-    pkgs.hplipWithPlugin
+    pkgs.hplip
   ];
 
   environment.systemPackages = with pkgs; [
