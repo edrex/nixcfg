@@ -5,9 +5,7 @@
   };
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.follows = "nixpkgs-unstable";
-
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -104,8 +102,8 @@
     in {
       homeConfigurations = {
         edrex = inputs.home-manager.lib.homeManagerConfiguration {
-          # system = "x86_64-linux";
           pkgs = import inputs.nixpkgs {
+            # TODO: this should be perSystem, somehow
             system = "x86_64-linux";
             overlays = [ localOverlay ];
           };
