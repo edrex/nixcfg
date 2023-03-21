@@ -17,8 +17,8 @@
     home-manager.url =  "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
-    agenix.url = "github:ryantm/agenix"; # consider switching to sops-nix
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    # agenix.url = "github:ryantm/agenix"; # consider switching to sops-nix
+    # agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     nil = {
       url = "github:oxalica/nil";
@@ -84,7 +84,7 @@
                 };
                 nixpkgs = {
                   overlays = [
-                    inputs.agenix.overlays.default
+                    # inputs.agenix.overlays.default
                     # inputs.emacs-overlay.overlay
                     localOverlay
                   ];
@@ -95,7 +95,6 @@
               })
               (./nixos/hosts/${host}/configuration.nix)
               (./nixos/users/edrex.nix)
-              inputs.agenix.nixosModules.age
             ] ++ extra-modules;
             specialArgs = { inherit inputs; };
           };

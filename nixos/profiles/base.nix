@@ -88,7 +88,6 @@
     # yq
     # gitAndTools.gitFull
     # nix dev
-    agenix
     cachix
     # diffoscope
   ];
