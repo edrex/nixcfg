@@ -54,50 +54,6 @@
             then inputs.helix.outputs.packages.${system}.helix 
             else prev.helix;
       });
-      mkSystem = { host, system ? "x86_64-linux", extra-modules ? []}:
-        let
-          lib = inputs.nixpkgs.lib;
-        in
-          lib.nixosSystem {
-            system = system;
-            modules = [
-              ./nixos/modules
-              ({ pkgs, ... }: {  
-                nix = {
-                  # readOnlyStore = false;
-                  settings = {
-                    auto-optimise-store = true;
-                    sandbox = true;
-                    trusted-users = [ "@wheel" ];
-                  };
-                
-                  extraOptions = ''
-                    experimental-features = nix-command flakes
-                    # keep-outputs = true
-                    # keep-derivations = true
-                  '';
-                  gc = {
-                    automatic = true;
-                    dates = "03:15";
-                  };
-                  registry.nixpkgs.flake = inputs.nixpkgs;
-                };
-                nixpkgs = {
-                  overlays = [
-                    # inputs.agenix.overlays.default
-                    # inputs.emacs-overlay.overlay
-                    localOverlay
-                  ];
-                  config = {
-                    allowUnfree = true;
-                  };
-                };
-              })
-              (./nixos/hosts/${host}/configuration.nix)
-              (./nixos/users/edrex.nix)
-            ] ++ extra-modules;
-            specialArgs = { inherit inputs; };
-          };
     in {
       homeConfigurations = {
         edrex = inputs.home-manager.lib.homeManagerConfiguration {
@@ -109,23 +65,6 @@
           modules = [ ./home ];
         };
       };
-      nixosConfigurations = {
-        chip = mkSystem {
-          host = "chip";
-          extra-modules = [ inputs.nixos-hardware.nixosModules.dell-xps-13-9360 ];
-        };
-        pidrive = mkSystem {
-          host = "pidrive";
-          system = "aarch64-linux";
-        };
-        whitecanyon = mkSystem {
-          host = "whitecanyon";
-          system = "aarch64-linux";
-        };
-        silversurfer = mkSystem {
-          host = "silversurfer";
-          #TODO: inputs.nixos-hardware.nixosModules.apple-macbook-pro-2-2
-        };
-      };
+      nixosConfigurations = import ./nixos/hosts { inherit inputs localOverlay; };
     };
 }
