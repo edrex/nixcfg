@@ -38,6 +38,7 @@
           inherit inputs pkgs;
           modules = [ ./devenv.nix ];
         };
+        # home-manager --flake . switch
         legacyPackages.homeConfigurations.edrex = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home ];

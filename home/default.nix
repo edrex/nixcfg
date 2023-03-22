@@ -19,16 +19,16 @@
   home.stateVersion = lib.mkDefault "21.11";
 
   home.packages = with pkgs; [
-    # TODO: put this in edrex/noteshell
-    # obsidian
     bottom
     # hledger
     # hledger-web
     pulsemixer
     gh
-    gopass
+    # gopass # basic pass is better
+    pass
     fishPlugins.foreign-env # fenv command
     gnupg
+    fzf
   ];
 
   services = {

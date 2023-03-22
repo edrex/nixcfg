@@ -23,8 +23,6 @@ in {
       enable = true;
       shellAliases = {
         g = "git";
-        gi = "gitui";
-        e = "hx";
         d = "date +%Y-%m-%d";
         j = "cd ~/wiki && e ~/wiki/$(d).md";
         # avoid nested shells so exec-with-pwd can find PWD
@@ -33,16 +31,20 @@ in {
       };
     };
 
-    # git = {
-    #   enable = true;
-    #   userName = "Eric Drechsel";
-    #   userEmail = "eric@pdxhub.org";
-    #   extraConfig = {
-    #     init.defaultBranch = "main";
-    #     push = { default = "current"; };
-    #     pull = { rebase = true; };
-    #   };
-    # };
+    git = {
+      enable = true;
+      difftastic.enable = true;
+      userName = "Eric Drechsel";
+      userEmail = "eric@pdxhub.org";
+      extraConfig = {
+        init.defaultBranch = "main";
+        push = { default = "current"; };
+        pull = { rebase = true; };
+      };
+      ignores = [
+        ".direnv"
+      ];
+    };
     direnv = {
       enable = true;
       nix-direnv = {
