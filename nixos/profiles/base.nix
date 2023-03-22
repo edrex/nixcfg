@@ -43,6 +43,7 @@
 
   # install basic packages
   environment.systemPackages = with pkgs; [
+    helix
     htop
     iotop
     iftop

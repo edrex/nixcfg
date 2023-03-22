@@ -46,16 +46,16 @@ in {
     host = "chip";
     extra-modules = [ inputs.nixos-hardware.nixosModules.dell-xps-13-9360 ];
   };
-  pidrive = mkSystem {
-    host = "pidrive";
-    system = "aarch64-linux";
-  };
-  whitecanyon = mkSystem {
-    host = "whitecanyon";
-    system = "aarch64-linux";
-  };
-  silversurfer = mkSystem {
-    host = "silversurfer";
-    #TODO: inputs.nixos-hardware.nixosModules.apple-macbook-pro-2-2
-  };
+  # pidrive = mkSystem {
+  #   host = "pidrive";
+  #   system = "aarch64-linux";
+  # };
+  # whitecanyon = mkSystem {
+  #   host = "whitecanyon";
+  #   system = "aarch64-linux";
+  # };
+  # silversurfer = mkSystem {
+  #   host = "silversurfer";
+  #   #TODO: inputs.nixos-hardware.nixosModules.apple-macbook-pro-2-2
+  # };
 }

@@ -5,11 +5,11 @@
     #   # Enables wireless support via wpa_supplicant.
     #   enable = true;  
     #   # userControlled.enable = true;
-
     # };
     networkmanager = {
       enable = true;
-      wifi.backend = "iwd";
+      # iwd gives up too easily when signal is weak :|
+      # wifi.backend = "iwd";
     };
   };
 

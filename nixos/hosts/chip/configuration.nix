@@ -13,7 +13,7 @@
       ../../profiles/wayland.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix
-      ../../profiles/gaming.nix
+      # ../../profiles/gaming.nix
     ];
 
 
