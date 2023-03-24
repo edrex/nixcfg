@@ -1,0 +1,19 @@
+#!/bin/sh
+
+usage(){
+  echo "Usage: $0 remove|upgrade"
+  echo "Select multiple packages with TAB"
+}
+
+case $1 in
+  "remove" | "upgrade")
+    nix profile list \
+      | cut -f 1,2 -d ' ' \
+      | fzf -m \
+      | cut -f 1 -d ' ' \
+      | xargs nix profile $1
+    ;;
+  *)
+    usage
+  ;;
+esac
