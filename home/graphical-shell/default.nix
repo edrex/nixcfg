@@ -2,7 +2,7 @@
 # really close match to my config needs: https://codeberg.org/imMaturana/nixos-config
 # todo: rename to "shell" (and module system)
   imports = [ 
-    # ./sway.nix
+    ./sway.nix
     ./displays.nix
     ./notify.nix
     ./screenshots.nix

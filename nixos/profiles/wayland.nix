@@ -4,6 +4,7 @@
  
   environment.systemPackages = with pkgs; [
     # i use all 3
+    # TODO: way-displays systemd service
     way-displays
     wdisplays
     wlr-randr
@@ -14,42 +15,43 @@
     # gnome.nautilus
   ];
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${lib.makeBinPath [pkgs.greetd.tuigreet] }/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${lib.makeBinPath [pkgs.greetd.tuigreet] }/tuigreet --time --cmd sway";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    # https://man.sr.ht/~kennylevinsen/greetd/#how-to-set-xdg_session_typewayland
-    #TODO: put this in a reusable script
-    extraSessionCommands = ''
-      #!/bin/sh
+  # home-manager takes care of sway
+  # programs.sway = {
+  #   enable = true;
+  #   wrapperFeatures.gtk = true;
+  #   # https://man.sr.ht/~kennylevinsen/greetd/#how-to-set-xdg_session_typewayland
+  #   #TODO: put this in a reusable script
+  #   extraSessionCommands = ''
+  #     #!/bin/sh
 
-      # Session
-      export XDG_SESSION_TYPE=wayland
-      export XDG_SESSION_DESKTOP=sway
-      export XDG_CURRENT_DESKTOP=sway
+  #     # Session
+  #     export XDG_SESSION_TYPE=wayland
+  #     export XDG_SESSION_DESKTOP=sway
+  #     export XDG_CURRENT_DESKTOP=sway
 
-      export MOZ_ENABLE_WAYLAND=1
-      export NIXOS_OZONE_WL=1
-      export CLUTTER_BACKEND=wayland
-      export QT_QPA_PLATFORM=wayland-egl
-      export ECORE_EVAS_ENGINE=wayland-egl
-      export ELM_ENGINE=wayland_egl
-      export SDL_VIDEODRIVER=wayland
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export NO_AT_BRIDGE=1
+  #     export MOZ_ENABLE_WAYLAND=1
+  #     export NIXOS_OZONE_WL=1
+  #     export CLUTTER_BACKEND=wayland
+  #     export QT_QPA_PLATFORM=wayland-egl
+  #     export ECORE_EVAS_ENGINE=wayland-egl
+  #     export ELM_ENGINE=wayland_egl
+  #     export SDL_VIDEODRIVER=wayland
+  #     export _JAVA_AWT_WM_NONREPARENTING=1
+  #     export NO_AT_BRIDGE=1
 
-      #systemd-cat --identifier=sway sway $@
-    '';
-  };
+  #     #systemd-cat --identifier=sway sway $@
+  #   '';
+  # };
 
 
   # flatpak support

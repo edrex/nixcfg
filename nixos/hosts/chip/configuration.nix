@@ -10,6 +10,7 @@
       # ./keyboards.nix
       ../../profiles/base.nix
       ../../profiles/laptop.nix
+      ../../profiles/plasma.nix
       ../../profiles/wayland.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# args:
+#   name
+#   template
+
+# prepend date
+cd ~/src/github.com/edrex

@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }:
-# TODO: let's split all the non-sway stuff off, and make it work with river too
+# TODO: let's factor out non-sway util stuff
+# to work with other wayland envs like river and hypr too
 # kitchen sink config I can crib off of:
 # https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
 # https://git.sr.ht/~jshholland/nixos-configs/tree/master/home/sway.nix
@@ -27,12 +28,16 @@ in
       modifier = "Mod4";
       startup = [
         { always = true; command = "${pkgs.systemd}/bin/systemd-notify --ready || true"; }
+        { command = "${pkgs.way-displays}"; }
         { always = true; command = "${idlecmd}"; }
         { command = "${pkgs.poweralertd}/bin/poweralertd"; }
         # work around https://github.com/emersion/kanshi/issues/43
         { always = true; command = "systemctl --user restart kanshi.service"; }
       ];
       input = {
+        "type:keyboard" = {
+          xkb_options = "caps:escape,altwin:swap_alt_win";
+        };
         "type:touchpad" = {
           tap = "enabled";
           dwt = "enabled";
@@ -91,6 +96,11 @@ in
       window.commands = [
         { command = "title_format \"<span background='#FFA0A0' foreground='#000000'>%title</span>\""; criteria = { shell = "xwayland"; } ; }
       ];
+    };
+
+    extraConfig = "seat seat0 xcursor_theme Adwaita 24\n";
+  };
+}
 /*
 # scroll wheel on lauren's mouse is slooooowwwww
 #input "1118:1957:Microsoft_Microsoft___2.4GHz_Transceiver_v9.0_Mouse" scroll_factor 10
@@ -390,8 +400,3 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 */
-    };
-
-    extraConfig = "seat seat0 xcursor_theme Adwaita 24\n";
-  };
-}

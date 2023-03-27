@@ -15,6 +15,7 @@
   difftastic.enable = true;
 
   languages = {
+    # bash.enable = true;
     c.enable = true;
     # clojure.enable = true;
     cplusplus.enable = true;

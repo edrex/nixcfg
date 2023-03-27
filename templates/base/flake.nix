@@ -9,27 +9,31 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url =  "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    devenv.url = "github:cachix/devenv";
+    devenv.url = github:cachix/devenv;
+    
+    nil = {
+      url = "github:oxalica/nil";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     helix.url = "github:helix-editor/helix";
   };
 
   outputs = inputs@{ flake-parts, ... }:
     let
-      lib = inputs.nixpkgs.lib;
       localOverlay = import ./overlay.nix { inherit inputs; };
     in flake-parts.lib.mkFlake { inherit inputs; } rec {
       systems = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: rec {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [ localOverlay ];
+          overlays = [
+            localOverlay
+          ];
         };
         # a devShell is just an app, which is a runnable package
-        packages = {
-          # default = devShells.default;
-          dev = devShells.default;
-          # p = pkgs.callPackage ./pkgs/p {};
-        };
+        packages.default = devShells.default;
         devShells.default = inputs.devenv.lib.mkShell {
           inherit inputs pkgs;
           modules = [ ./devenv.nix ];
@@ -37,17 +41,10 @@
         # home-manager --flake . switch
         legacyPackages.homeConfigurations.edrex = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./home
-            {
-              # just stick all exported packages into home.packages, mm?
-              home.packages = lib.attrValues self'.packages;
-            }
-          ];
+          modules = [ ./home ];
         };
       };
       flake = {
-        # todo: pass nixosModules in. probably surface individual hosts too.
         nixosConfigurations = import ./nixos/hosts { inherit inputs localOverlay; };
       };
     };

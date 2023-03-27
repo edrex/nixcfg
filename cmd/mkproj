@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# script to launch a new proj
+GHUSER=edrex
+PNAME=$1
+# TODO: Load these from ENV with default
+PROJECTS="$HOME/src/github.com/$GHUSER"
+PDIR="$PROJECTS/$PNAME"
+mkdir "$PDIR" && \
+  cd "$PDIR" && \ 
+    git init && \ 
+      # TODO is there a remote creation tool that works with Gitlab, Gitea, and Github?
+        hub create $GHUSER/$PNAME && \
+          # TODO: proj command
+          code .
+
+# TODO select language with letter prompts + back (no confirm)

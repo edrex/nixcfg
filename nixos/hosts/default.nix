@@ -44,6 +44,7 @@ let
 in {
   chip = mkSystem {
     host = "chip";
+    # if I bring this inside the main module, it causes infinite recursion
     extra-modules = [ inputs.nixos-hardware.nixosModules.dell-xps-13-9360 ];
   };
   # pidrive = mkSystem {

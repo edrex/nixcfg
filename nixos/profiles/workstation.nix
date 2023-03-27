@@ -11,7 +11,6 @@
     gimp
     simple-scan
     gscan2pdf
-    skanlite
     ];
 
 
