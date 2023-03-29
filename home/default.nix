@@ -19,12 +19,11 @@
   home.stateVersion = lib.mkDefault "21.11";
 
   home.packages = with pkgs; [
+    # TODO: sort these into other modules 
     bottom
     # hledger
     # hledger-web
-    pulsemixer
     gh
-    # gopass # basic pass is better
     pass
     fishPlugins.foreign-env # fenv command
     gnupg

@@ -17,6 +17,7 @@ in {
   ];
   home.sessionVariables = {
     VISUAL = "${pkgs.helix}/bin/hx";
+    EDITOR = "$VISUAL"; # for `pass edit`
   };
   programs = {
     fish = {

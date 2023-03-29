@@ -1,16 +1,14 @@
 { config, pkgs, lib, ... }:
-{
-  environment.systemPackages = with pkgs; []
-    # ++ builtins.filter lib.isDerivation (builtins.attrValues plasma5Packages.kdeGear)
-    ++ builtins.filter lib.isDerivation (builtins.attrValues plasma5Packages.kdeFrameworks)
-    ++ builtins.filter lib.isDerivation (builtins.attrValues plasma5Packages.plasma5);
-  
-  nixpkgs.config = {
-    # workaround plasma apps install https://github.com/NixOS/nixpkgs/issues/148452
-    # Maybe a way to patch just the one package tho?
-    allowAliases = false;
-  };
-
+let
+  dervsFrom = s: builtins.filter (x: (builtins.tryEval x).success && (lib.isDerivation x)) (builtins.attrValues s);
+in {
+  environment.systemPackages = with pkgs; [
+    kgpg
+  ]
+    ++ dervsFrom plasma5Packages.kdeGear
+    ++ dervsFrom plasma5Packages.kdeFrameworks
+    ++ dervsFrom plasma5Packages.plasma5;
+    
   # Wish for wayland only login manager, alas (GDM tho)
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;

@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
-# TODO: let's factor out non-sway util stuff
-# to work with other wayland envs like river and hypr too
+# TODO: factor out service spawning to share with other wayland envs
+# TODO: keymaps nix module that
 # kitchen sink config I can crib off of:
 # https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
 # https://git.sr.ht/~jshholland/nixos-configs/tree/master/home/sway.nix
@@ -9,6 +9,11 @@
   */
 let
   # TODO: Menu
+  # - journal binding (with class, auto scratch)
+  # TODO term in pwd binding (cmd in sway mod)
+  # TODO sticky meta (via nix keymap module)
+
+
   # TODO: https://github.com/altdesktop/playerctl
   # idle/lock
   # TODO: test and fix/ remove this message
@@ -31,8 +36,7 @@ in
         { command = "${pkgs.way-displays}"; }
         { always = true; command = "${idlecmd}"; }
         { command = "${pkgs.poweralertd}/bin/poweralertd"; }
-        # work around https://github.com/emersion/kanshi/issues/43
-        { always = true; command = "systemctl --user restart kanshi.service"; }
+        { command = "${pkgs.way-displays}/bin/way-displays"; }
       ];
       input = {
         "type:keyboard" = {
@@ -60,8 +64,8 @@ in
           Up = "up";
         };
       in lib.mkOptionDefault ({
-
         "${modifier}+Shift+r" = "reload";
+        "${modifier}+c" = "kill";
         "${modifier}+Shift+c" = "exec ${pkgs.rofimoji}/bin/rofimoji -a clipboard";
 
         "${modifier}+Return" = "exec ${term}";
@@ -80,8 +84,7 @@ in
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -d 5";
         "XF86AudioMute" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -t";
         
-        # toggle hide bar
-	      "${modifier}+Shift+b" = "bar mode toggle";
+	      "${modifier}+Shift+b" = "bar mode toggle"; # toggle swaybar
 	      # "${modifier}+Shift+b" = "exec killall -SIGUSR1 waybar";
 
         "${modifier}+XF86AudioMute" = "mode passthrough";
