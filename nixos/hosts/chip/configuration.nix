@@ -22,6 +22,10 @@
   services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";
   # Use same config for linux console
   console.useXkbConfig = true;
+  # enabling kmscon prevented starting of:
+  # - gdm
+  # - sway
+  # - also doesn't work with useXkbConfig
   # services.kmscon.enable = true;
   
   # Use the systemd-boot EFI boot loader.

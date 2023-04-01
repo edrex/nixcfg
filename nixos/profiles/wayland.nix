@@ -1,20 +1,4 @@
 { pkgs, lib, ... }: {
-  # way too broad, just for gsettings stuff
-  # services.xserver.desktopManager.gnome.enable = true;
- 
-  environment.systemPackages = with pkgs; [
-    # i use all 3
-    # TODO: way-displays systemd service
-    way-displays
-    wdisplays
-    wlr-randr
-    river
-    xdg-utils
-    imv # i guess this should be in a module with basic userspace stuff
-    # gnome.gnome-software
-    # gnome.nautilus
-  ];
-
   # services.greetd = {
   #   enable = true;
   #   settings = {
@@ -25,11 +9,14 @@
   #   };
   # };
 
+  # TODO: eval if HM sway module needs any tweaks from here
+  # TODO: move this to a module, maybe flake-module with HM config (so they are enabled together)
   # home-manager takes care of sway
-  # programs.sway = {
-  #   enable = true;
-  #   wrapperFeatures.gtk = true;
-  #   # https://man.sr.ht/~kennylevinsen/greetd/#how-to-set-xdg_session_typewayland
+  programs.sway = {
+    enable = true;
+    package = null; # just create the session file etc, and use sway from path (provided by HM)_
+  #  wrapperFeatures.gtk = true;
+  # https://man.sr.ht/~kennylevinsen/greetd/#how-to-set-xdg_session_typewayland
   #   #TODO: put this in a reusable script
   #   extraSessionCommands = ''
   #     #!/bin/sh
@@ -51,7 +38,7 @@
 
   #     #systemd-cat --identifier=sway sway $@
   #   '';
-  # };
+  };
 
 
   # flatpak support

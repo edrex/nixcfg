@@ -1,34 +1,13 @@
 { pkgs, ... }: {
   home.packages = with pkgs;
   [
-    kanshi
+    # i use all 3
+    # TODO: way-displays systemd user service, started via compositor target
+    way-displays # a MUCH MUCH MUCH better display manager than kanshi, but not yet popular
+    wdisplays
+    wlr-randr
   ];
-
-  services.kanshi = {
-    enable = true;
-    profiles = {
-      undocked = {
-        outputs = [
-          { criteria = "eDP-1";
-            scale = 2.0;
-            position = "0,0";
-          }
-        ];
-      };
-      docked = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            scale = 2.0;
-            position = "160,1080";
-          }
-          {
-            criteria = "DP-1";
-            scale = 1.0;
-            position = "0,0";
-          }
-        ];
-      };
-    };
-  };
+  # way-displays needs input group, added to ~/nix/nixos/users/edrex.nix
+  # TODO: Flake module which exposes both nixos and hm modules
+  # TODO: hm module for way-displays
 }

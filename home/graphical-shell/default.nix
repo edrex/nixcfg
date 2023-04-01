@@ -42,7 +42,11 @@
     gtk_engines
     gsettings-desktop-schemas
     # lxappearance
-    # qt5ct why?
+    qt5ct # set qt themes without kde
+    xdg-utils
+    imv # i guess this should be in a module with basic userspace stuff
+    # gnome.gnome-software
+    # gnome.nautilus
   ];
 
   services.wlsunset = {

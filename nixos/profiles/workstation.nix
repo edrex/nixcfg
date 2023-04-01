@@ -10,7 +10,8 @@
   environment.systemPackages = with pkgs; [
     gimp
     simple-scan
-    gscan2pdf
+    # build broken 220328
+    # gscan2pdf
     ];
 
 

@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 # TODO: factor out service spawning to share with other wayland envs
 # TODO: keymaps nix module that
-# kitchen sink config I can crib off of:
+# kitchen sink configs I can crib off of:
 # https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
 # https://git.sr.ht/~jshholland/nixos-configs/tree/master/home/sway.nix
   /*
@@ -10,7 +10,7 @@
 let
   # TODO: Menu
   # - journal binding (with class, auto scratch)
-  # TODO term in pwd binding (cmd in sway mod)
+  # TODO term in pwd binding (cmd in sway mod, cuz mapping client to process id is sway-specific at least for now)
   # TODO sticky meta (via nix keymap module)
 
 
@@ -63,32 +63,44 @@ in
           Down = "down";
           Up = "up";
         };
-      in lib.mkOptionDefault ({
-        "${modifier}+Shift+r" = "reload";
-        "${modifier}+c" = "kill";
-        "${modifier}+Shift+c" = "exec ${pkgs.rofimoji}/bin/rofimoji -a clipboard";
+        wsBind = f: builtins.listToAttrs (map f (map toString (lib.lists.range 1 9)));
+      # https://discourse.nixos.org/t/how-can-i-augment-a-default-value-instead-of-overriding-it/14774/4
+      # "set the priority of your value to be equal to that of the option’s default (1500), which will cause the values to be merged together."
+      in lib.mkOptionDefault (
+        {
+          "${modifier}+Shift+r" = "reload";
+          "${modifier}+c" = "kill";
+          "${modifier}+Shift+c" = "exec ${pkgs.rofimoji}/bin/rofimoji -a clipboard";
 
-        "${modifier}+Return" = "exec ${term}";
-	      "${modifier}+Shift+grave" = "move scratchpad";
-	      "${modifier}+grave" = "scratchpad show";
+          "${modifier}+Return" = "exec ${term}";
+  	      "${modifier}+Shift+grave" = "move scratchpad";
+  	      "${modifier}+grave" = "scratchpad show";
 
-	      "${modifier}+Ctrl+s" = "exec screenshot";
+  	      "${modifier}+Ctrl+s" = "exec screenshot";
 
-        # TODO: notif, maybe wob 
-        "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +2%";
-        "XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
-        "Shift+XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +10%";
-        "Shift+XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+          # TODO: notif, maybe wob 
+          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +2%";
+          "XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
+          "Shift+XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +10%";
+          "Shift+XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
 
-        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -i 5";
-        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -d 5";
-        "XF86AudioMute" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -t";
-        
-	      "${modifier}+Shift+b" = "bar mode toggle"; # toggle swaybar
-	      # "${modifier}+Shift+b" = "exec killall -SIGUSR1 waybar";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -i 5";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -d 5";
+          "XF86AudioMute" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -t";
+      
+          "${modifier}+p" = "exec ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g- screenshot-$(date +%Y%m%d-%H%M%S).png";
+      
+  	      "${modifier}+Shift+b" = "bar mode toggle"; # toggle swaybar
+  	      # "${modifier}+Shift+b" = "exec killall -SIGUSR1 waybar";
+      
+  	      "${modifier}+tab" = "workspace next";
+  	      "${modifier}+Shift+tab" = "workspace next";
 
-        "${modifier}+XF86AudioMute" = "mode passthrough";
-      } // dirBind (dirKey: dir: { name = "${modifier}+Ctrl+Shift+${dirKey}"; value = "move workspace to output ${dir}";}));
+          "${modifier}+F12" = "mode passthrough";
+        }
+        // dirBind (dirKey: dir: { name = "${modifier}+Ctrl+Shift+${dirKey}"; value = "move workspace to output ${dir}";})
+        // wsBind (ws: { name = "${modifier}+Shift+${ws}"; value = "move container to workspace ${ws}, workspace ${ws}";})
+      );
       modes = {
         passthrough = {
           "${modifier}+XF86AudioMute" = "mode default";
@@ -105,10 +117,6 @@ in
   };
 }
 /*
-# scroll wheel on lauren's mouse is slooooowwwww
-#input "1118:1957:Microsoft_Microsoft___2.4GHz_Transceiver_v9.0_Mouse" scroll_factor 10
-input "1452:781:Dennis___s_Mouse" scroll_factor 3
-
 font pango:DejaVu Sans Mono 10
 for_window [class=".*"] title_format "<span background='#ff0000'>%title</span>"
 
@@ -120,21 +128,6 @@ exec wlsunset -l 45.5 -L -122.6
 #exec albert #launcher
 exec swaymsg command seat "*" hide_cursor 5000
 
-for_window [instance=mpv] floating enable, sticky enable
-for_window [app_id="firefox"] inhibit_idle fullscreen
-# for_window [shell="xdg"] title_format '[%app_id] %title'
-for_window [shell="xdg"] title_format '%title'
-for_window [shell="xwayland" ] title_format '[X11] %title'
-
-set $mod Mod4
-set $left h
-set $down j
-set $up k
-set $right l
-
-# waiting for clipboard support
-#set $term alacritty
-#set $term kitty
 set $term exec-with-pwd $TERMINAL
 set $interm $term
 set $floatterm floatterm
