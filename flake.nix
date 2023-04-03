@@ -11,6 +11,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
     helix.url = "github:helix-editor/helix";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ flake-parts, ... }:
@@ -42,7 +44,9 @@
             {
               # just stick all exported packages into home.packages, mm?
               home.packages = lib.attrValues self'.packages;
+              programs.nix-index.enable = true;
             }
+            inputs.nix-index-database.hmModules.nix-index
           ];
         };
       };
