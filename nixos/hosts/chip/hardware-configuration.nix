@@ -31,13 +31,26 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  fileSystems."/var/lib/lxd/shmounts" =
+    { device = "tmpfs";
+      fsType = "tmpfs";
+    };
+
+  fileSystems."/var/lib/lxd/devlxd" =
+    { device = "tmpfs";
+      fsType = "tmpfs";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/c1f05946-1f7b-48cd-b494-717c5589d0f6"; }
+    ];
 
   # disable broken USB port in hub. Probably not needed with a different hub.
   services.udev.extraRules = ''
     KERNELS=="usb4" SUBSYSTEMS=="usb" ATTRS{idVendor}=="1d6b" ATTRS{idProduct}=="0003" ATTR{authorized}="0"
   '';
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
