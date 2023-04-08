@@ -3,6 +3,7 @@
     [
       ./graphical-shell
       ./devtools
+      ./lang/python.nix
        # ./term
       # ./apps/vscode
       # ./apps/neovim.nix
@@ -16,7 +17,12 @@
   home.homeDirectory = "/home/edrex";
   home.username = "edrex";
 
+  # default because hm state somehow sets this
   home.stateVersion = lib.mkDefault "21.11";
+
+  home.sessionVariables = {
+    PATH = "$HOME/cmd:$PATH";
+  };
 
   home.packages = with pkgs; [
     # TODO: sort these into other modules 

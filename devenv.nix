@@ -24,6 +24,7 @@
     # javascript.enable = true;
     nix.enable = true;
     python.enable = true;
+    python.poetry.enable = true;
     # rust.enable = true;
     zig.enable = true;    
   };

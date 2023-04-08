@@ -17,6 +17,16 @@
       # ../../profiles/gaming.nix
     ];
 
+  # trying out xanmod kernel
+  #
+  # via https://github.com/NixOS/nixpkgs/issues/63708
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+
+  # trying out https://nixos.wiki/wiki/WayDroid
+  virtualisation = {
+    waydroid.enable = true;
+    lxd.enable = true;
+  };
 
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";

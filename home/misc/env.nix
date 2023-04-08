@@ -1,4 +1,4 @@
-{ pkgs, config, nix-colors, ... }:
+{ pkgs, ... }:
 
 
 # TODO: break this up to the four winds

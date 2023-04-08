@@ -1,12 +1,11 @@
 { pkgs, config, lib, ... }:
 # TODO: factor out service spawning to share with other wayland envs
 # TODO: keymaps nix module that
+
 # kitchen sink configs I can crib off of:
-# https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
-# https://git.sr.ht/~jshholland/nixos-configs/tree/master/home/sway.nix
-  /*
-  - [ ] wrapper is provided by hm?
-  */
+# - https://github.com/cole-mickens/nixcfg/blob/main/mixins/sway.nix
+# - https://git.sr.ht/~jshholland/nixos-configs/tree/master/home/sway.nix
+
 let
   # TODO: Menu
   # - journal binding (with class, auto scratch)
@@ -27,7 +26,20 @@ let
   term = config.home.sessionVariables.TERMINAL;
 in 
 {
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = let
+    modifier = config.wayland.windowManager.sway.config.modifier;
+    dirBind = f: lib.attrsets.mapAttrs' f {
+      h = "left";
+      l = "right";
+      j = "down";
+      k = "up";
+      Left = "left";
+      Right = "right";
+      Down = "down";
+      Up = "up";
+    };
+    wsBind = f: builtins.listToAttrs (map f (map toString (lib.lists.range 1 9)));
+  in {
     enable = true;
     config = rec {
       modifier = "Mod4";
@@ -51,22 +63,9 @@ in
         };
       };
 
-      keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
-        dirBind = f: lib.attrsets.mapAttrs' f {
-          h = "left";
-          l = "right";
-          j = "down";
-          k = "up";
-          Left = "left";
-          Right = "right";
-          Down = "down";
-          Up = "up";
-        };
-        wsBind = f: builtins.listToAttrs (map f (map toString (lib.lists.range 1 9)));
       # https://discourse.nixos.org/t/how-can-i-augment-a-default-value-instead-of-overriding-it/14774/4
       # "set the priority of your value to be equal to that of the option’s default (1500), which will cause the values to be merged together."
-      in lib.mkOptionDefault (
+      keybindings = lib.mkOptionDefault (
         {
           "${modifier}+Shift+r" = "reload";
           "${modifier}+c" = "kill";
@@ -97,6 +96,7 @@ in
   	      "${modifier}+Shift+tab" = "workspace next";
 
           "${modifier}+F12" = "mode passthrough";
+          "${modifier}+r" = "mode resize";
         }
         // dirBind (dirKey: dir: { name = "${modifier}+Ctrl+Shift+${dirKey}"; value = "move workspace to output ${dir}";})
         // wsBind (ws: { name = "${modifier}+Shift+${ws}"; value = "move container to workspace ${ws}, workspace ${ws}";})
@@ -104,6 +104,14 @@ in
       modes = {
         passthrough = {
           "${modifier}+XF86AudioMute" = "mode default";
+        };
+        resize = {
+          Escape = "mode default";
+          Return = "mode default";
+          "h" = "resize shrink width 10 px or 10 ppt";
+          "l" = "resize grow width 10 px or 10 ppt";
+          "j" = "resize grow height 10 px or 10 ppt";
+          "k" = "resize shrink height 10 px or 10 ppt";
         };
       };
 

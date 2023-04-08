@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-script-bash
-#!runtimeInputs fzf
+#!/bin/sh
 
 usage(){
   echo "Usage: $0 remove|upgrade"
