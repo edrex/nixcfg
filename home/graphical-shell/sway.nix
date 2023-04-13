@@ -99,6 +99,7 @@ in
           "${modifier}+r" = "mode resize";
         }
         // dirBind (dirKey: dir: { name = "${modifier}+Ctrl+Shift+${dirKey}"; value = "move workspace to output ${dir}";})
+        // dirBind (dirKey: dir: { name = "${modifier}+Ctrl+${dirKey}"; value = "focus output ${dir}";})
         // wsBind (ws: { name = "${modifier}+Shift+${ws}"; value = "move container to workspace ${ws}, workspace ${ws}";})
       );
       modes = {
