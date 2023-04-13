@@ -6,20 +6,18 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    home-manager.url =  "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
-    helix.url = "github:helix-editor/helix";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs = inputs@{ flake-parts, home-manager, nixos-hardware, helix, ... }:
     let
       lib = inputs.nixpkgs.lib;
       localOverlay = import ./overlay.nix { inherit inputs; };
-    in flake-parts.lib.mkFlake { inherit inputs; } rec {
+    in flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: rec {
         _module.args.pkgs = import inputs.nixpkgs {
