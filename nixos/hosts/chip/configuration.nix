@@ -70,7 +70,9 @@
 
   # TODO
   hardware.opengl.enable = true;
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = true;
+
 
   # mount tmpfs on /tmp
   boot.tmpOnTmpfs = lib.mkDefault true;

@@ -17,6 +17,7 @@
 
    programs.light.enable = true;
   # see `man logind.conf`
+  services.logind.lidSwitchExternalPower = "ignore";
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed
     HandlePowerKey=suspend
