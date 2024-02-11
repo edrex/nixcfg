@@ -25,7 +25,7 @@ in {
       shellAliases = {
         g = "git";
         d = "date +%Y-%m-%d";
-        j = "cd ~/wiki && e ~/wiki/$(d).md";
+        j = "cd ~/wiki && $EDITOR ~/wiki/(d).md";
         # avoid nested shells so exec-with-pwd can find PWD
         # todo: make this a loop over a command set
         workon = "exec workon";

@@ -1,6 +1,10 @@
 # edrex's nix env configs
 
-This repo contains my nix environment configs: nixos, home-manager, and later things like nix-on-droid, darwin, etc.
+This repo describes my personal infrastructure.
+
+
+
+ my nix environment configs: nixos, home-manager, and later things like nix-on-droid, darwin, etc.
 
 ## Principles
 
@@ -32,3 +36,11 @@ To use the system nixpkgs version:
 `nix flake lock --override-input nixpkgs nixpkgs`
 
 * TODO: put commands in flake.
+
+## Terms
+
+- repository-oriented architecture
+
+## Tools
+
+- devenv

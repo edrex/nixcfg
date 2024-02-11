@@ -27,8 +27,6 @@
   home.packages = with pkgs; [
     # TODO: sort these into other modules 
     bottom
-    # hledger
-    # hledger-web
     gh
     pass
     fishPlugins.foreign-env # fenv command
@@ -37,9 +35,11 @@
   ];
 
   services = {
+    gnome-keyring.enable = true;
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
+      pinentryFlavor = "gnome3";
     };
     syncthing = {
       enable = true;

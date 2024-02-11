@@ -15,7 +15,8 @@ let
             };
         
             extraOptions = ''
-              experimental-features = nix-command flakes
+              experimental-features = nix-command flakes auto-allocate-uids
+              auto-allocate-uids = true
               # keep-outputs = true
               # keep-derivations = true
             '';
@@ -23,7 +24,17 @@ let
               automatic = true;
               dates = "03:15";
             };
-            registry.nixpkgs.flake = inputs.nixpkgs;
+            # weapons-grade ooftonium
+            # https://discourse.nixos.org/t/my-painpoints-with-flakes/9750/24
+            registry = {
+              # self.flake = inputs.self;
+              nixpkgs.to = {
+                owner = "NixOS";
+                repo = "nixpkgs";
+                rev = inputs.nixpkgs.rev;
+                type = "github";
+              };
+            };
           };
           nixpkgs = {
             overlays = [

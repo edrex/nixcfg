@@ -11,23 +11,36 @@
       ../../profiles/base.nix
       ../../profiles/laptop.nix
       ../../profiles/plasma.nix
+      ../../profiles/gnome.nix
       ../../profiles/wayland.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix
+      ../../profiles/sdr.nix
       # ../../profiles/gaming.nix
     ];
 
   # trying out xanmod kernel
-  #
+  # TODO: make this this the default. ARM support?
   # via https://github.com/NixOS/nixpkgs/issues/63708
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
 
+  # s2idle has high power drain on this model, at least under linux
+  # https://superuser.com/questions/1792252/how-do-i-disable-suspend-to-ram-and-enable-suspend-to-idle#1792269
+  # i would rather disable s2idle in the bios. this just changes to deep on boot
+  # WARN: some other power mngr could change this value at runtime, which would be BAD
+  systemd.tmpfiles.rules = [
+    "w /sys/power/mem_sleep - - - - deep"
+  ];
+  
+  # TODO: extract to mod
   # trying out https://nixos.wiki/wiki/WayDroid
   virtualisation = {
     waydroid.enable = true;
     lxd.enable = true;
   };
 
+
+  # TODO: put this in a sysprefs module
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";
   # Use same config for linux console
@@ -41,6 +54,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # experimental systemd as pid 1 in initrd
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = "chip"; # Define your hostname.
 
@@ -75,7 +91,7 @@
 
 
   # mount tmpfs on /tmp
-  boot.tmpOnTmpfs = lib.mkDefault true;
+  boot.tmp.useTmpfs = lib.mkDefault true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

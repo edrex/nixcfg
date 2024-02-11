@@ -2,10 +2,6 @@
 {
   # https://devenv.sh/reference/options/
   packages = with pkgs; [
-    helix
-
-    # nix stuff
-    home-manager
   ];
 
   enterShell = ''

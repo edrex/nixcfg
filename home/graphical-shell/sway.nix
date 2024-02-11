@@ -45,6 +45,7 @@ in
       modifier = "Mod4";
       startup = [
         { always = true; command = "${pkgs.systemd}/bin/systemd-notify --ready || true"; }
+        { always = true; command = "${pkgs.swaybg}/bin/swaybg -c '#000000'"; }
         { command = "${pkgs.way-displays}"; }
         { always = true; command = "${idlecmd}"; }
         { command = "${pkgs.poweralertd}/bin/poweralertd"; }

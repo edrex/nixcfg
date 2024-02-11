@@ -12,6 +12,7 @@
   # TODO: eval if HM sway module needs any tweaks from here
   # TODO: move this to a module, maybe flake-module with HM config (so they are enabled together)
   # home-manager takes care of sway
+  programs.hyprland.enable = true;
   programs.sway = {
     enable = true;
     package = null; # just create the session file etc, and use sway from path (provided by HM)_

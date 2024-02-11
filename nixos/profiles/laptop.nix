@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, nixos-hardware, lib, ... }:
 
 {
   imports =
@@ -10,12 +10,11 @@
   # temperature / power consumption
   # https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
   # TODO(eval): how useful is this?
-  services.tlp.enable = true;
   services.thermald.enable = true;
   powerManagement.powertop.enable = true;
   # TODO: crib off of https://discourse.nixos.org/t/fan-keeps-spinning-with-a-base-installation-of-nixos/1394/3
 
-   programs.light.enable = true;
+  programs.light.enable = true;
   # see `man logind.conf`
   services.logind.lidSwitchExternalPower = "ignore";
   services.logind.extraConfig = ''

@@ -8,6 +8,7 @@
     ./screenshots.nix
   ];
 
+  # wayland.windowManager.hyprland.enable = true;
 
   home.pointerCursor = {
     name = "Adwaita";
@@ -29,6 +30,7 @@
     xdg-utils # todo: xdg compat basics import
     swaylock
     swayidle
+    swaybg
     wl-clipboard
     brightnessctl
     wlsunset

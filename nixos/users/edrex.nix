@@ -5,7 +5,7 @@
   users.extraUsers.edrex = {
     isNormalUser = true;
     # TODO: input is needed for way-displays, put that in a common nixos+hm module somehow (idea: personal module that can do both)
-    extraGroups = [ "wheel" "input" "networkmanager" "audio" "video" "docker" "libvirtd" "plugdev" ];
+    extraGroups = [ "wheel" "input" "networkmanager" "audio" "video" "docker" "libvirtd" "plugdev" "dialout"];
     shell = pkgs.fish;
     hashedPassword = "$6$99syLpQ4jX2X/J3Q$Xov5YQEdpQa5VU6KsnAVrT7Mj1toF9nbpMCyQK9PMn.8po5ky7a.9Kix/fegVzcwsVl7qxh1yIk4ulTzV3xml.";
     # TODO: move to HM?
