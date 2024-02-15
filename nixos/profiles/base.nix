@@ -1,5 +1,10 @@
 { config, pkgs, lib, nix, inputs, ... }:
 {
+  # trying out xanmod kernel
+  # TODO: make this this the default. ARM support?
+  # via https://github.com/NixOS/nixpkgs/issues/63708
+  boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_xanmod_latest;
+
   networking = {
     #useNetworkd = true;
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -13,6 +18,17 @@
   # systemd.network = {
   #   enable = true;
   # };
+
+  # TODO: put this in a sysprefs module
+  services.xserver.layout = "us";
+  services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";
+  # Use same config for linux console
+  console.useXkbConfig = true;
+  # enabling kmscon prevented starting of:
+  # - gdm
+  # - sway
+  # - also doesn't work with useXkbConfig
+  # services.kmscon.enable = true;
 
   services.openssh = {
     enable = true;
@@ -33,6 +49,9 @@
     anonymousPro
   ];
   fonts.fontconfig.defaultFonts.monospace =  [ "Iosevka" ];
+
+  # Set your time zone.
+  time.timeZone = lib.mkDefault "America/Los_Angeles";
 
   # Select internationalisation properties.
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";

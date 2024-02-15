@@ -19,11 +19,6 @@
       # ../../profiles/gaming.nix
     ];
 
-  # trying out xanmod kernel
-  # TODO: make this this the default. ARM support?
-  # via https://github.com/NixOS/nixpkgs/issues/63708
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
-
   # s2idle has high power drain on this model, at least under linux
   # https://superuser.com/questions/1792252/how-do-i-disable-suspend-to-ram-and-enable-suspend-to-idle#1792269
   # i would rather disable s2idle in the bios. this just changes to deep on boot
@@ -31,26 +26,7 @@
   systemd.tmpfiles.rules = [
     "w /sys/power/mem_sleep - - - - deep"
   ];
-  
-  # TODO: extract to mod
-  # trying out https://nixos.wiki/wiki/WayDroid
-  virtualisation = {
-    waydroid.enable = true;
-    lxd.enable = true;
-  };
 
-
-  # TODO: put this in a sysprefs module
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "caps:escape,altwin:swap_alt_win";
-  # Use same config for linux console
-  console.useXkbConfig = true;
-  # enabling kmscon prevented starting of:
-  # - gdm
-  # - sway
-  # - also doesn't work with useXkbConfig
-  # services.kmscon.enable = true;
-  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -65,22 +41,6 @@
 
   # networking.interfaces.wlp58s0.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable CUPS to print documents.
-  # TODO: printing mixin
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [
-    hplip
-  ]; 
-  services.fwupd.enable = true;
-  services.avahi.enable = true;
-  # Important to resolve .local domains of printers, otherwise you get an error
-  # like  "Impossible to connect to XXX.local: Name or service not known"
-  services.avahi.nssmdns = true;  # gate settings
-  
   sound.enable = true;
   hardware.bluetooth.enable = true;
 

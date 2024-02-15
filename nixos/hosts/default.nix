@@ -58,6 +58,9 @@ in {
     # if I bring this inside the main module, it causes infinite recursion
     extra-modules = [ inputs.nixos-hardware.nixosModules.dell-xps-13-9360 ];
   };
+  minion = mkSystem {
+    host = "minion";
+  };
   # pidrive = mkSystem {
   #   host = "pidrive";
   #   system = "aarch64-linux";

@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: {
+  # TODO: rename to network-client.nix
   # systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     # wireless = {
@@ -18,4 +19,21 @@
      iw
    ];
   # networking.wireless.iwd.enable = true;
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable CUPS to print documents.
+  # TODO: printing mixin
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+    hplip
+  ]; 
+  services.fwupd.enable = true;
+  services.avahi.enable = true;
+  # Important to resolve .local domains of printers, otherwise you get an error
+  # like  "Impossible to connect to XXX.local: Name or service not known"
+  services.avahi.nssmdns = true;  # gate settings
+  
 }
