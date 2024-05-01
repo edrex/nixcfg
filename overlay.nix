@@ -17,6 +17,7 @@
           sha256 = "sha256-ZQD7nXXL4ZiWCn0St3RaEZLWwhcNryn+JbmGV2Klf/I=";
         };
       });
+      emacs = inputs.emacs-overlay.outputs.packages.${system}.emacsUnstablePgtk;
       helix =
         if system == "x86_64-linux"
         then inputs.helix.outputs.packages.${system}.helix 

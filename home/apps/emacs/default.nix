@@ -2,13 +2,12 @@
 {
   # Crib:
   # https://github.com/hlissner/dotfiles/blob/master/modules/editors/emacs.nix
-  services.emacs.package = pkgs.emacsPgtkNativeComp;
+  # services.emacs.package = pkgs.emacsPgtkNativeComp;
   home.packages = with pkgs; [
     ## Emacs itself
     binutils       # native-comp needs 'as', provided by this
     ## Wayland enabled 29 + native-comp
-    ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages
-      (epkgs: [ epkgs.vterm ]))
+    emacsWithPackages (epkgs: [ epkgs.vterm ])
     pandoc
 
     ## Doom dependencies
