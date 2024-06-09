@@ -15,6 +15,11 @@
   # TODO: crib off of https://discourse.nixos.org/t/fan-keeps-spinning-with-a-base-installation-of-nixos/1394/3
 
   programs.light.enable = true;
+  # services.clight.enable = true;
+  # location = {
+  #   latitude = 45.5;
+  #   longitude = -122.6;
+  # };
   # see `man logind.conf`
   services.logind.lidSwitchExternalPower = "ignore";
   services.logind.extraConfig = ''

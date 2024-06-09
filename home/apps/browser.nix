@@ -4,6 +4,7 @@
     # vivaldi
     # firefox-wayland
     chromium
+    # brave
     # qutebrowser
   ];
   programs = {

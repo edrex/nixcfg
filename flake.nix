@@ -10,13 +10,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flakey-profile.url = "github:lf-/flakey-profile";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    
   };
 
-  outputs = inputs@{ flake-parts, home-manager, nixos-hardware, helix, emacs-overlay, ... }:
+  outputs = inputs@{ flake-parts, home-manager, nixos-hardware, ... }:
     let
       lib = inputs.nixpkgs.lib;
       localOverlay = import ./overlay.nix { inherit inputs; };
@@ -30,6 +36,7 @@
         # a devShell is just an app, which is a runnable package
         packages = {
           # default = devShells.default;
+          # base
           dev = devShells.default;
           p = pkgs.callPackage ./pkgs/p {};
         };
@@ -45,6 +52,7 @@
             # make command-not-found work
             inputs.nix-index-database.hmModules.nix-index
             {
+              nixpkgs.config.allowUnfree = true;
               # just stick all exported packages into home.packages, mm?
               # home.packages = lib.attrValues self'.packages;
               # enable `,` command eg `, fcgi-wrapper ..`

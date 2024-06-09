@@ -11,19 +11,15 @@
       ../../profiles/base.nix
       ../../profiles/laptop.nix
       # ../../profiles/plasma.nix
-      ../../profiles/gnome.nix
+      # ../../profiles/gnome.nix
       ../../profiles/wayland.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix
       ../../profiles/sdr.nix
       # ../../profiles/gaming.nix
     ];
-
-  # trying out xanmod kernel
-  # TODO: make this this the default. ARM support?
-  # via https://github.com/NixOS/nixpkgs/issues/63708
-  # boot.kernelPackages =  pkgs.linuxKernel.packages.linux_xanmod_latest;
-  boot.kernelPackages = pkgs.pkgs.linuxPackages_6_5;
+    services.desktopManager.cosmic.enable = true;
+    services.displayManager.cosmic-greeter.enable = true;
 
   # s2idle has high power drain on this model, at least under linux
   # https://superuser.com/questions/1792252/how-do-i-disable-suspend-to-ram-and-enable-suspend-to-idle#1792269

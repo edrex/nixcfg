@@ -7,7 +7,8 @@
     ## Emacs itself
     binutils       # native-comp needs 'as', provided by this
     ## Wayland enabled 29 + native-comp
-    emacsWithPackages (epkgs: [ epkgs.vterm ])
+    ((emacsPackagesFor emacs29-pgtk).emacsWithPackages
+        (epkgs: [ epkgs.vterm ]))
     pandoc
 
     ## Doom dependencies
@@ -20,7 +21,7 @@
     imagemagick         # for image-dired
     # FIXME: merge home stuff with main config
     # (lib.mkIf (config.programs.gnupg.agent.enable)
-      pinentry_emacs   # in-emacs gnupg prompts
+      pinentry-emacs   # in-emacs gnupg prompts
     zstd                # for undo-fu-session/undo-tree compression
 
     ## Module dependencies

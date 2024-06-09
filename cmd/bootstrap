@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# TODO: check nix command exists
+# TODO: check for needed config (flakes, nix command)

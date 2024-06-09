@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
 # modular config
@@ -10,5 +10,7 @@
   imports = [
     ./av.nix
     ./backup.nix
+    ./cosmic.nix
+    inputs.nixos-cosmic.nixosModules.default
   ];
 }

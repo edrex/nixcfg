@@ -1,4 +1,4 @@
-
+TODO: gather up relevant ideas from wiki etc and organize them here
 
 Let's cast high-level spells!
 

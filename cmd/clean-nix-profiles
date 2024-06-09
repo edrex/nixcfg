@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+def x(c)
+  puts "> #{c}"
+  `#{c}`
+end
+
+profiles = ["system", "per-user/edrex/profile"].map{|p| "/nix/var/nix/profiles/" + p } + ["~/.local/state/nix/profiles/home-manager"]
+
+profiles.each do |p|
+  puts "removing old generations of #{p}"
+  `sudo nix-env -p #{p} --delete-generations old`
+end
+
+x "nix store gc"

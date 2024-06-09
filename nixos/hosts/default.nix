@@ -7,6 +7,7 @@ let
         ../modules
         ({ pkgs, ... }: {  
           nix = {
+            package = pkgs.nixVersions.latest;
             # readOnlyStore = false;
             settings = {
               auto-optimise-store = true;
@@ -24,17 +25,10 @@ let
               automatic = true;
               dates = "03:15";
             };
-            # weapons-grade ooftonium
-            # https://discourse.nixos.org/t/my-painpoints-with-flakes/9750/24
-            registry = {
-              # self.flake = inputs.self;
-              nixpkgs.to = {
-                owner = "NixOS";
-                repo = "nixpkgs";
-                rev = inputs.nixpkgs.rev;
-                type = "github";
-              };
-            };
+            # point nixpkgs registry entry at a pre-fetched store path
+            # WARNING: this will result in nix flake update using the local version
+            # which may be bad. Still, offline mode wins.
+            registry.nixpkgs.flake = inputs.nixpkgs;
           };
           nixpkgs = {
             overlays = [

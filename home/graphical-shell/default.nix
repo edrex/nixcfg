@@ -49,6 +49,9 @@
     imv # i guess this should be in a module with basic userspace stuff
     # gnome.gnome-software
     # gnome.nautilus
+    # window managers
+    niri
+    fuzzel
   ];
 
   services.wlsunset = {

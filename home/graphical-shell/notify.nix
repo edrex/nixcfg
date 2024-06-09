@@ -28,7 +28,7 @@
   home.packages = with pkgs; [
     dunst
     libnotify # for notify-send
-    pamixer-notify
+    avizo # volume/brightness notif https://github.com/misterdanb/avizo
   ];
 
   # if sound

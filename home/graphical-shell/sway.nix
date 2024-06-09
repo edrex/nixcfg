@@ -46,7 +46,6 @@ in
       startup = [
         { always = true; command = "${pkgs.systemd}/bin/systemd-notify --ready || true"; }
         { always = true; command = "${pkgs.swaybg}/bin/swaybg -c '#000000'"; }
-        { command = "${pkgs.way-displays}"; }
         { always = true; command = "${idlecmd}"; }
         { command = "${pkgs.poweralertd}/bin/poweralertd"; }
         { command = "${pkgs.way-displays}/bin/way-displays"; }
@@ -79,14 +78,14 @@ in
   	      "${modifier}+Ctrl+s" = "exec screenshot";
 
           # TODO: notif, maybe wob 
-          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +2%";
-          "XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
-          "Shift+XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +10%";
-          "Shift+XF86MonBrightnessDown"  = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+          "XF86MonBrightnessUp" = "exec lightctl +2%";
+          "XF86MonBrightnessDown"  = "exec lightctl -2%";
+          "Shift+XF86MonBrightnessUp" = "exec lightctl +10%";
+          "Shift+XF86MonBrightnessDown"  = "exec -10%";
 
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -i 5";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -d 5";
-          "XF86AudioMute" = "exec ${pkgs.pamixer-notify}/bin/pamixer-notify -t";
+          "XF86AudioRaiseVolume" = "exec volumectl +";
+          "XF86AudioLowerVolume" = "exec volumectl -";
+          "XF86AudioMute" = "exec volumectl togglemute";
       
           "${modifier}+p" = "exec ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g- screenshot-$(date +%Y%m%d-%H%M%S).png";
       
@@ -105,7 +104,7 @@ in
       );
       modes = {
         passthrough = {
-          "${modifier}+XF86AudioMute" = "mode default";
+          "${modifier}+F12" = "mode default";
         };
         resize = {
           Escape = "mode default";

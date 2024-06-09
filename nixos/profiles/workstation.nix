@@ -12,6 +12,7 @@
     simple-scan
     # build broken 220328
     # gscan2pdf
+    mpv
     ];
 
 
