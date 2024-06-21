@@ -5,6 +5,9 @@ def x(c)
   `#{c}`
 end
 
+# TODO: does this take care of everything?
+x "nix-collect-garbage -d"
+
 profiles = ["system", "per-user/edrex/profile"].map{|p| "/nix/var/nix/profiles/" + p } + ["~/.local/state/nix/profiles/home-manager"]
 
 profiles.each do |p|

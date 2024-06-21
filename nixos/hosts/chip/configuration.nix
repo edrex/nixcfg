@@ -18,8 +18,6 @@
       ../../profiles/sdr.nix
       # ../../profiles/gaming.nix
     ];
-    services.desktopManager.cosmic.enable = true;
-    services.displayManager.cosmic-greeter.enable = true;
 
   # s2idle has high power drain on this model, at least under linux
   # https://superuser.com/questions/1792252/how-do-i-disable-suspend-to-ram-and-enable-suspend-to-idle#1792269

@@ -29,10 +29,10 @@
     in flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: rec {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [ localOverlay ];
-        };
+        # _module.args.pkgs = import inputs.nixpkgs {
+        #   inherit system;
+        #   overlays = [ localOverlay ];
+        # };
         # a devShell is just an app, which is a runnable package
         packages = {
           # default = devShells.default;

@@ -13,7 +13,6 @@
 
     ## Doom dependencies
     git
-    (ripgrep.override {withPCRE2 = true;})
     gnutls              # for TLS connectivity
 
     ## Optional dependencies
@@ -33,6 +32,22 @@
     sqlite
   ];
 
+# TODO: generate a config file that gets included by the one in git
+
+  home.sessionPath = [
+    "$HOME/.config/emacs/bin" # doom emacs scripts
+  ];
+
+  xdg.desktopEntries.org-protocol = {
+    name = "org-protocol";
+    exec = "emacsclient -- %u";
+    terminal = false;
+    type = "Application";
+    categories = ["System"];
+    mimeType = ["x-scheme-handler/org-protocol"];
+  };
+
+# TODO: add org-capture chrome extension
 # ...
 
   # programs.doom-emacs = {

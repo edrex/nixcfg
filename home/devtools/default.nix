@@ -39,8 +39,9 @@ in {
       userEmail = "eric@pdxhub.org";
       extraConfig = {
         init.defaultBranch = "main";
-        push = { default = "current"; };
-        pull = { rebase = true; };
+        push.default = "current";
+        pull.rebase = true;
+        uploadpack.allowFilter = true;
       };
       ignores = [
         ".direnv"

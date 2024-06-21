@@ -12,6 +12,11 @@
   # TODO: eval if HM sway module needs any tweaks from here
   # TODO: move this to a module, maybe flake-module with HM config (so they are enabled together)
   # home-manager takes care of sway
+    # services.desktopManager.cosmic.enable = true;
+    # services.displayManager.cosmicGreeter.enable = true;
+
+    # services.displayManager.lightdm.enable = true;
+    
   programs.hyprland.enable = true;
   programs.sway = {
     enable = true;

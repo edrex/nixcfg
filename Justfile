@@ -5,9 +5,11 @@ host:
 
 home:
   nh home switch .
-      
+
+# nix registry is pinned to the store paths of the inputs to this flake,
+# so this affects all builds without their own locking.
 update:
-  nix flake update --override-input nixpkgs nixpkgs
+  nix flake update
 
 gc:
   cmd/clean-nix-profiles

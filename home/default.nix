@@ -20,10 +20,15 @@
   # default because hm state somehow sets this
   home.stateVersion = lib.mkDefault "21.11";
 
-  home.sessionVariables = {
-    PATH = "$HOME/cmd:$PATH";
-  };
+  # home.sessionVariables = {
+    # PATH = "$HOME/cmd:$PATH";
+  # };
 
+  home.sessionPath = [
+    "$HOME/cmd"
+    "$HOME/.config/emacs/bin" # doom emacs scripts
+  ];
+  
   home.packages = with pkgs; [
     # TODO: sort these into other modules 
     bottom
