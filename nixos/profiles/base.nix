@@ -83,7 +83,7 @@
     file
     lsof
     inotify-tools
-  # TODO: put this stuff behind an edrex.use.debugging flag
+  # TODO: debugging module
     psmisc
     usbutils
     strace

@@ -38,6 +38,7 @@ in {
       userName = "Eric Drechsel";
       userEmail = "eric@pdxhub.org";
       extraConfig = {
+        url."git@github.com:".insteadOf = "https://github.com/";
         init.defaultBranch = "main";
         push.default = "current";
         pull.rebase = true;
