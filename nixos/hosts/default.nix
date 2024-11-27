@@ -4,6 +4,8 @@ let
     inputs.nixpkgs.lib.nixosSystem {
       system = system;
       modules = [
+        inputs.nixos-cosmic.nixosModules.default
+
         ../modules
         ({ pkgs, ... }: {  
           nix = {

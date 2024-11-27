@@ -44,14 +44,16 @@
     gtk_engines
     gsettings-desktop-schemas
     # lxappearance
-    qt5ct # set qt themes without kde
+    libsForQt5.qt5ct # set qt themes without kde
     xdg-utils
     imv # i guess this should be in a module with basic userspace stuff
+    cosmic-files
     # gnome.gnome-software
     # gnome.nautilus
+    # TODO: move unused elsewhere
     # window managers
-    niri
-    fuzzel
+    # niri
+    # fuzzel
   ];
 
   services.wlsunset = {

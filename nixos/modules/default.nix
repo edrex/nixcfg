@@ -11,6 +11,5 @@
     ./av.nix
     ./backup.nix
     ./cosmic.nix
-    inputs.nixos-cosmic.nixosModules.default
   ];
 }
