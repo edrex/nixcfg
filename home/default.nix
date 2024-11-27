@@ -26,10 +26,10 @@
 
   home.sessionPath = [
     "$HOME/cmd"
-    "$HOME/.config/emacs/bin" # doom emacs scripts
   ];
   
   home.packages = with pkgs; [
+    # https://jvns.ca/blog/2022/04/12/a-list-of-new-ish--command-line-tools/
     # TODO: sort these into other modules 
     bottom
     gh
@@ -38,32 +38,75 @@
     gnupg
     fzf
     yadm
-    # dumped from user profile, need to sort
-    git-filter-repo
-    home-manager
     
     gron
     # unrar #unfree
     unzip
-    tydra
-    just
-    gum
     ani-cli
-    transmission-gtk
+    transmission_4-gtk
     mpv
     termtosvg
     sshx
     ruby
     ripgrep
-    ranger
-    qutebrowser
     qdirstat
     pwgen
-    obsidian
+    # obsidian
     nushell
     nodejs
-    nix-du
-    nh # https://github.com/viperML/nh
+    
+    # essential dev tools
+    # zellij
+    helix 
+
+    # git 
+    # gitFull # incl git gui, gitk
+    gitu # magit for term!
+    gitty # interact with forges
+    git-filter-repo
+    gh delta
+    
+    fd fzf zoxide
+    sd # sed alt https://github.com/chmln/sd
+    choose # cut alt https://github.com/theryangeary/choose
+    
+    eza # better ls https://github.com/eza-community/eza
+    
+    # workflow creation
+    just gum tydra
+
+    # direnv
+    direnv nix-direnv
+    devenv
+    
+    # ops
+    htop btop glances
+
+    # file managers
+    ranger nnn lf 
+    
+    highlight # needed for ranger highlighting
+    # TODO set HIGHLIGHT_STYLE=andes
+    # TODO evaluate tmsu, ansi tool
+    
+    # nix
+    nixd # LSP server with comprehensive goto definition etc
+    nh # QoL wrapper for nix build, nixos-rebuild, home-manager, etc. See Justfile for usage example
+    # nix-du #broken atm
+    
+
+    # TODO: how to "activate" XDG dirs into main home session?
+    wezterm
+    # qutebrowser # for dir-scoped browser session prototype
+
+    # docs - maybe obsidian should be in wiki tho
+    obsidian 
+    markdown-oxide
+    pandoc
+
+    # wayland stuff
+    wlrctl # interact with wayland toplevels etc via script
+    pinentry-gtk2
   ];
 
   services = {

@@ -71,7 +71,7 @@ in
           "${modifier}+c" = "kill";
           "${modifier}+Shift+c" = "exec ${pkgs.rofimoji}/bin/rofimoji -a clipboard";
 
-          "${modifier}+Return" = "exec ${term}";
+          "${modifier}+Return" = "exec $TERMINAL";
   	      "${modifier}+Shift+grave" = "move scratchpad";
   	      "${modifier}+grave" = "scratchpad show";
 

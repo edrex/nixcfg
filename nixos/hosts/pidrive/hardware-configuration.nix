@@ -40,7 +40,6 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  # TODO: mkIf sound.enable
   boot.loader.raspberryPi.firmwareConfig = ''
     dtparam=audio=on
   '';

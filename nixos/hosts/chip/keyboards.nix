@@ -27,7 +27,7 @@
   # see also https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb
   services.udev.extraHwdb = ''
 # this matches all input devices i think
-# bad idea since it results in lots of err: failed to call EVIOCSKEYCODE with scan code 
+# results in lots of err: failed to call EVIOCSKEYCODE with scan code 
 # evdev:input:*
 evdev:name:Goldtouch Bluetooth Keyboard:dmi:bvn*:bvr*:bd*:svn*:pn*
 evdev:name:Microsoft Microsoft® 2.4GHz Transceiver v9.0:dmi:bvn*:bvr*:bd*:svn*:pn*

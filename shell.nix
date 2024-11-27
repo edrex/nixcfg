@@ -2,6 +2,8 @@
 
 pkgs.mkShell {
   packages = with pkgs; [ 
-    nixd
+    #nixd
+    nh
+    hydra-check
   ];
 }

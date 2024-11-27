@@ -41,11 +41,10 @@
 
   # networking.interfaces.wlp58s0.useDHCP = true;
 
-  sound.enable = true;
   hardware.bluetooth.enable = true;
 
   # TODO
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   # services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
 

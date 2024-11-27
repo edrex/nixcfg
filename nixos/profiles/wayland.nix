@@ -12,12 +12,10 @@
   # TODO: eval if HM sway module needs any tweaks from here
   # TODO: move this to a module, maybe flake-module with HM config (so they are enabled together)
   # home-manager takes care of sway
-    # services.desktopManager.cosmic.enable = true;
-    # services.displayManager.cosmicGreeter.enable = true;
 
     # services.displayManager.lightdm.enable = true;
     
-  programs.hyprland.enable = true;
+  # programs.hyprland.enable = true;
   programs.sway = {
     enable = true;
     package = null; # just create the session file etc, and use sway from path (provided by HM)_
@@ -44,10 +42,10 @@
 
 
   # flatpak support
-  # services.flatpak.enable = true;
+  services.flatpak.enable = true;
   xdg.portal = {
-    # enable = true;
-    wlr.enable = lib.mkForce true; # hyprland wants it disabled, sway wants it on
+    enable = true;
+# :    wlr.enable = lib.mkForce true; # hyprland wants it disabled, sway wants it on
     # gtk portal needed to make gtk apps happy
     # 2024-02-13: commented bc of a weird conflict
     # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

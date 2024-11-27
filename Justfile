@@ -1,6 +1,6 @@
-all: update host home
+all: update os home
 
-host:
+os:
   nh os switch .
 
 home:
@@ -11,5 +11,8 @@ home:
 update:
   nix flake update
 
-gc:
+test:
+  nh os test .
+
+clean:
   cmd/clean-nix-profiles

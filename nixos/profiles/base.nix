@@ -73,6 +73,7 @@
     neovim
     wget
     curl
+    httpie
     tcpdump
     dig
     parted
@@ -112,6 +113,7 @@
     # gitAndTools.gitFull
     # nix dev
     cachix
+    home-manager
     # diffoscope
   ];
 }

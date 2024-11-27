@@ -1,4 +1,0 @@
-#!/usr/bin/env nix-script-bash
-#!runtimeInputs jq
-
-jq --help

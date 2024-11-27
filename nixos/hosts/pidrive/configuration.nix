@@ -32,8 +32,6 @@
     };
   };
 
-  # sound support
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   age.secrets.ddclient.file = ../../secrets/pidrive/ddclient.conf.age;
