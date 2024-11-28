@@ -1,6 +1,6 @@
-all: update os home
+all: update host home
 
-os:
+host:
   nh os switch .
 
 home:

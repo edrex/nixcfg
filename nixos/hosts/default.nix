@@ -12,6 +12,8 @@ let
             package = pkgs.nixVersions.latest;
             # readOnlyStore = false;
             settings = {
+              substituters = [ "https://cosmic.cachix.org/" ];
+              trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
               auto-optimise-store = true;
               sandbox = true;
               trusted-users = [ "@wheel" ];

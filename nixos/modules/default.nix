@@ -10,6 +10,5 @@
   imports = [
     ./av.nix
     ./backup.nix
-    ./cosmic.nix
   ];
 }

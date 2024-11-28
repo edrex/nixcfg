@@ -11,16 +11,13 @@
   in {
    
   home.packages = with pkgs; [
-    firefox-devedition
+    # firefox-devedition
     brave
-    qutebrowser
+    # qutebrowser
   ];
   programs = {
     browserpass.enable = true;
-    chromium = {
-      enable = true;
-      inherit extensions;
-    };
+    # chromium = {
     brave = {
       enable = true;
       inherit extensions;

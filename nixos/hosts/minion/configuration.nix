@@ -9,8 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../profiles/base.nix
-      ../../profiles/gnome.nix
-      ../../profiles/wayland.nix
+      ../../profiles/cosmic.nix
       ../../profiles/wireless-client.nix
     ];
 

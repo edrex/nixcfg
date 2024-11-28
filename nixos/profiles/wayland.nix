@@ -16,6 +16,8 @@
     # services.displayManager.lightdm.enable = true;
     
   # programs.hyprland.enable = true;
+  # otherwise chromium-based progs use xwayland, ewww
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   programs.sway = {
     enable = true;
     package = null; # just create the session file etc, and use sway from path (provided by HM)_
