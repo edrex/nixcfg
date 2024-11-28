@@ -10,9 +10,7 @@
       # ./keyboards.nix
       ../../profiles/base.nix
       ../../profiles/laptop.nix
-      # ../../profiles/plasma.nix
-      # ../../profiles/gnome.nix
-      ../../profiles/wayland.nix
+      ../../profiles/cosmic.nix
       ../../profiles/wireless-client.nix
       ../../profiles/vmhost.nix
       ../../profiles/sdr.nix
