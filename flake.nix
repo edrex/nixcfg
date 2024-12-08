@@ -11,20 +11,20 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
+    # nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
     # Optional, to download less. Neither the module nor the overlay uses this input.
-    nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "";   
+    # nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "";
   };
 
   outputs = inputs@{ flake-parts, home-manager, nixos-hardware, ... }:
@@ -56,7 +56,7 @@
             ./home
             # make command-not-found work
             inputs.nix-index-database.hmModules.nix-index
-            inputs.nix-doom-emacs-unstraightened.hmModule
+            # inputs.nix-doom-emacs-unstraightened.hmModule
             {
               nixpkgs.config.allowUnfree = true;
               # just stick all exported packages into home.packages, mm?
