@@ -12,7 +12,9 @@ profiles = ["system", "per-user/edrex/profile"].map{|p| "/nix/var/nix/profiles/"
 
 profiles.each do |p|
   puts "removing old generations of #{p}"
-  `sudo nix-env -p #{p} --delete-generations old`
+  # man nix-env-delete-generations
+  # keep current and last
+  `sudo nix-env -p #{p} --delete-generations +2`
 end
 
 x "nix store gc"
